@@ -1,10 +1,18 @@
 import { useState } from "react";
 
-export default function NewTask(){
-    const[enteredTask, setEnteredTask] = useState();
+export default function NewTask({onAdd}){
+    const[enteredTask, setEnteredTask] = useState('');
 
     function handleChange(event){
         setEnteredTask(event.target.value)
+    }
+
+    function handleClick(){
+        if(enteredTask.trim() === ''){
+            return;
+        }
+        setEnteredTask('');
+        onAdd(enteredTask);
     }
 
     return(
@@ -14,7 +22,7 @@ export default function NewTask(){
                 onChange={handleChange} 
                 value={enteredTask}
             />
-            <button>Add Task</button>
+            <button onClick={handleClick}>Add Task</button>
         </div>
     );
 }
